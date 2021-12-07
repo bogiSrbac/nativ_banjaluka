@@ -1,0 +1,22 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block fakture %}
+    {% if kupac %}
+    <h2>Detalji za kupca: {{ kupac.ime }} {{ kupac.prezime }}</h2>
+    <p>Ime: {{ kupac.ime }}</p>
+    <p>Prezime: {{ kupac.prezime }}</p>
+    <p>Naziv preduzeća: {{ kupac.naziv_firme }}</p>
+    <p>Email: {{ kupac.email }}</p>
+    <p>Adresa: {{ kupac.adresa_kupca }}, {{ kupac.postanski_broj }}, {{ kupac.lokacija_grad }}</p>
+    <p>Država: {{ kupac.drzava }} </p>
+
+    <form action="{% url 'fakture:kupac-update' kupac.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Izmjeni">
+    </form>
+    <br>
+
+        <form>
+        <button formaction="{% url 'fakture:lista-kupci' %}">Vrati se bez promjena</button>
+            </form>
+    {% endif %}
+{% endblock %}

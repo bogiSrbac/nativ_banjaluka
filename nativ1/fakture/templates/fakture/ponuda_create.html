@@ -1,0 +1,17 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block fakture %}
+    {% if valute and kupci%}
+    <form method="post" action="" class="faktura-forma">
+    {% csrf_token %}
+        <table>
+    {{ form.as_table }}
+            </table>
+    <input type="submit" value="Nastavi" class="nastavi">
+    </form>
+    {% else %}
+    <p>Potrebno je da unesete elemente u tabele Valute i Lista kupaca!</p>
+            <form>
+    <button formaction="{% url 'fakture:index' %}">Vrati na početnu</button>
+    </form>
+    {% endif %}
+{% endblock %}

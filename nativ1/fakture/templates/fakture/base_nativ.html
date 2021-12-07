@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block title %}<title>NATIV</title>{% endblock %}
+
+    {% block style %}<style></style>{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/base_nativ.css' %}">
+</head>
+<body>
+
+<div class="glavni-nativ">
+<header id="header">
+    <div id="logo">
+        <img src="{% static 'slike/logo_nativ.png' %}" alt="Slika Nativ logo">
+    </div>
+    <h2>APLIKACIJA ZA IZRADU FAKTURA</h2>
+    <div id="login">
+        {% if user.is_authenticated %}
+            <p><a href="{% url 'logout' %}?next={{ request.path }}">ODJAVITE SE</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}?next={{ request.path }}">PRIJAVITE SE</a> </p>
+        {% endif %}
+    </div>
+    <div class="trenutno-prijavljen">
+        {% if user.is_authenticated %}
+            <p>Trenutno prijavljen: {{ user.ime }} {{ user.prezime }}</p>
+        {% else %}
+            <p></p>
+        {% endif %}
+    </div>
+</header>
+<p id="pocetna"><a href="{% url 'fakture:index' %}">POČETNA STRANICA</a></p>
+{% if user.is_authenticated %}
+<div class="navigacija">
+    <nav class="navigacija-sadrzaj">
+        <ul>
+            <li id="opcije">OPCIJE</li>
+            <li><a href="{% url 'fakture:lista_fakturi' %}">FAKTURE</a></li>
+            <li><a href="{% url 'fakture:ponuda-lista' %}">PONUDE</a></li>
+            <li><a href="{% url 'fakture:lista-kupci' %}">LISTA KUPACA</a></li>
+            <li><a href="{% url 'fakture:pozicije-lista' %}">POZICIJE</a></li>
+             <li><a href="{% url 'fakture:kreiraj-valutu' %}">VALUTE</a></li>
+             <li><a href="{% url 'fakture:lista-pdf-files' %}">PDF FAKTURE</a></li>
+            <li><a href="{% url 'fakture:placene-fakture-godine' %}">REALIZACIJA FAKTURA</a></li>
+
+            {% if user.is_superuser %}
+            <li><a href="{% url 'admin:index' %}">ADMIN</a></li>
+                {% endif %}
+        </ul>
+    </nav>
+</div>
+<div class="up">
+        <a href="#login"><span>&#8679;</span></a>
+    </div>
+</div>
+{% endif %}
+<div class="fakture">{% block fakture %}{% endblock %}</div>
+<div class="fakture-prodaja-kreiraj">{% block fakture-prodaja-kreiraj %}{% endblock %}</div>
+<div class="faktura-button">{% block faktura_button %}{% endblock %}</div>
+<div class="fakture_godine">{% block fakture_godine %}{% endblock %}</div>
+<div class="kreiraj-pdf">{% block pdf %}{% endblock %}</div>
+<div class="faktura-pregled-elemenata">{% block uneseni-elementi %}{% endblock %}</div>
+<div class="kupci">{% block kupci %}{% endblock %}</div>
+<div class="usluge">{% block usluge %}{% endblock %}</div>
+<div class="pozicije">{% block pozicije %}{% endblock %}</div>
+<div class="valute">{% block valute %}{% endblock %}</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>

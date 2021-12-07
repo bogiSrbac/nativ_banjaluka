@@ -1,0 +1,35 @@
+{% extends 'fakture/base_nativ.html' %}
+{% load static %}
+
+{% block fakture %}
+    {% for d in datum %}
+
+
+    <div class="fakture-lista-naslovna">
+    <h2>Fakture za {{ d|date:'Y' }}</h2>
+    <ul >
+
+        {% for f in fakture %}
+            {% if d|date:'Y' == f.datum_fakture|date:'Y' %}
+            <li>Broj fakture: {{ f.broj_fakture }}, {{ f.kupac }}, {{ f.datum_fakture|date:'d-m-Y' }}</li>
+
+                {% else %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+    </div>
+
+    {% endfor %}
+
+{%endblock  %}
+{% block valute %}
+    {% if valute %}
+    <h2>Trenutna vrijednost valuta u odnosu na BAM</h2>
+    <ul>
+    {% for v in valute %}
+        <li>Vrijednost valute {{ v.valute }}: {{ v.vrijednost_valute }}<a href="{% url 'fakture:valute_update' v.pk %}">                Promjeni kurs?</a></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+{% endblock %}

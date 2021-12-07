@@ -1,0 +1,43 @@
+{% extends 'fakture/base_nativ.html' %}
+{% load static %}
+{% block fakture %}
+     {% if pozicije and valute and kupci %}
+    {% else %}
+    <p style="color: darkred; font-size: 20px; font-weight: bold">Vratite se na početnu stranu i unesite minimalno po jedan element u tabele Pozicije, Valute i Kupci!</p>
+    {% endif %}
+    {% if datum %}
+    {% for d in datum %}
+         <div class="fakture-lista-naslovna">
+    <h2>Ponude za {{ d|date:'Y' }} godinu</h2>
+    <ul>
+    {% for p in ponuda_list  %}
+          {% if d|date:'Y' == p.datum_ponude|date:'Y' %}
+        <li><a href="{% url 'fakture:ponuda-detalji' p.pk %}">Broj ponude {{ p.broj_ponude }}</a>;  {{ p.kupac }} -- Datum fakture {{ p.datum_ponude|date:'d-m-Y' }} Realizacija:  {% if p.placeno == 'Aktivno' %}{{ p.placeno }}{% elif p.placeno == 'Stornirano'%}<span style="color: darkred; font-size: 20px">{{ p.placeno }}</span>{% else %}<span style="color: darkgreen; font-size: 20px">{{ p.placeno }}{% endif %}</span></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+         </div>
+    {% endfor %}
+{% else %}
+<h3>U bazi trenutno nema kreiranih ponuda!</h3>
+{% endif %}
+{% endblock %}
+{% block fakture_godine %}
+    {% if datum %}
+        <div class="fakture-godine">
+        <h2>Ponude po godinama</h2>
+        {% for d in datum %}
+        <p><a href="{% url 'fakture:ponude_po_godinama' d|date:'Y' %}">Ponude za {{ d|date:'Y' }} godinu</a></p>
+        {% endfor %}
+    </div>
+    {% else %}
+{% endif %}
+{% endblock %}
+{% block faktura_button %}
+    <div>
+    <p>Kreiraj novu ponudu: </p>
+    <form>
+        <button formaction="{% url 'fakture:ponuda-create' %}">Kreiraj</button>
+    </form>
+    </div>
+{% endblock %}

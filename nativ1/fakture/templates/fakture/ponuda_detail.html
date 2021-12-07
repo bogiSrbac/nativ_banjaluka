@@ -1,0 +1,59 @@
+{% extends 'fakture/base_nativ.html' %}
+{% load static %}
+{% block fakture %}
+    {% if pozicije %}
+    {% else %}
+    <p style="color: darkred; font-size: 20px; font-weight: bold">Vratite se na početnu stranu i unesite minimalno po jedan element u tabelu Pozicije!</p>
+    {% endif %}
+    {% if datum %}
+
+         <div class="fakture-lista-naslovna">
+    <h2>Ponuda</h2>
+    <p>Broj ponude: OF-{{ ponuda.broj_ponude }}-{{ ponuda.datum_ponude|date:'Ymd' }}-{{ ponuda.ident_brojevi }}</p>
+         <p>Datum ponude: {{ ponuda.datum_ponude|date:'d-m-Y' }}</p>
+         <p>Kupac: {{ ponuda.kupac }}</p>
+         <p>Rok plaćanja: {{ ponuda.rok_placanja|date:'d-m-Y' }}</p>
+         {% if ponuda.placeno == 'Aktivno' %}
+         <p>Realizacija: {{ ponuda.placeno }}</p>
+         {% elif ponuda.placeno == 'Stornirano' %}
+         <p style="color: darkred; font-size: 20px">Realizacija: {{ ponuda.placeno }}</p>
+         {% else %}
+          <p style="color: darkgreen; font-size: 20px">Realizacija: {{ ponuda.placeno }}</p>
+         {% endif %}
+         {% if not prodaja %}
+             <p style="font-weight: bold; font-size: 25px; color: darkred">U ponudi nemate unešene usluge!</p>
+             <form>
+             <button formaction="{% url 'fakture:ponuda-izmjena' ponuda.pk %}">Unesite elemente</button>
+             </form>
+         {% else %}
+             <form>
+             <button formaction="{% url 'fakture:ponuda-skica' ponuda.pk %}">Ponuda-skica</button>
+             </form>
+         {% endif %}
+         </div>
+
+{% else %}
+<h3>U bazi trenutno nema kreiranih Ponuda!</h3>
+{% endif %}
+{% endblock %}
+
+{% block faktura_button %}
+    <div>
+    <p>Kreiraj novu ponudu: </p>
+    <form>
+        <button formaction="{% url 'fakture:ponuda-create' %}">Kreiraj</button>
+    </form>
+    <br>
+        {% if ponuda.placeno == 'Aktivno' %}
+     <form>
+        <button formaction="{% url 'fakture:ponuda-u-fakturu' ponuda.pk %}">Pretvori u fakturu</button>
+    </form>
+    <br>
+     <form>
+        <button formaction="{% url 'fakture:ponuda-storniranje' ponuda.pk %}">Završi ponudu/storno</button>
+    </form>
+    {% else %}
+    <p style="background-color: #cccccc">Faktura je realizovana kao <span style="font-size: 25px; color: darkred">{{ ponuda.placeno }}</span></p>
+    {% endif %}
+    </div>
+{% endblock %}

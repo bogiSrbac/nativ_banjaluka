@@ -1,0 +1,12 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block valute %}
+    <h4>Promjeni kurs valute {{ valute.valute }}</h4>
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Promjeni">
+    </form>
+    <form>
+        <p>Vrati se nazad bez promjene: <button formaction="{% url 'fakture:index' %}">Naslovna</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>PDF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div id="footer">
+  <div id="footer-lijevo">
+  <p>NATIV - Engineering & Consulting</p>
+  <p>Kralja Petra II 110, 78000 Banja Luka</p>
+  <p>PIB 404297940005</p>
+  <p>Direktor: Duško Stojaković</p>
+  </div>
+    <div id="footer-desno">
+  <p>NLB Banka a.d. Banja Luka</p>
+  <p>IBAN: BA395620998146211620</p>
+  <p>SWIFT BIC: RAZBBA22</p>
+  <p>Račun za strane valute: 17091581</p>
+  </div>
+
+</div>
+<div class="glavni">
+<div id="logo">
+  <div id="logo-samo">
+   <img src="file://{{ image }}" alt="image not found">
+    <p>Engineering & Consulting d.o.o</p>
+  </div>
+</div>
+  <div id="zaglavlje_adresa">
+    <p>NATIV - Engineering & Consulting d.o.o.</p>
+    <p>78000 Banja Luka, Kralja Petra II 110</p>
+    <p>+387 (0) 51 / 921 - 034</p>
+    <p>PIB: 404297940005</p>
+    <p><link href="https://nativ.group/">www.nativ.group, info.bih@nativ.group</p>
+  </div>
+  <hr id="hr-1">
+  <div id="racun">
+    {% if ponuda.drzava == 'Bosna i Hercegovina' %}
+    <h4>Ponuda</h4>
+      {% else %}
+      <h4>Ponuda</h4>
+        <p>Angebot</p>
+      {% endif %}
+  </div>
+  <div id="racun-broj">
+    <h4>Broj: OF-{{ponuda.broj_ponude}}-{{ponuda.datum_ponude|date:'Ymd'}}-{{ ponuda.ident_brojevi }}</h4>
+  </div>
+  <hr id="hr-2">
+  <div id="prodavac">
+    {% if ponuda.drzava == 'Bosna i Hercegovina' %}
+    <div id="prodavac_zaglavlje">
+      <h4>PRODAVAČ</h4>
+    </div>
+      {% else %}
+          <div id="prodavac_zaglavlje">
+      <h4>PRODAVAČ / VERKÄUFER</h4>
+    </div>
+      {% endif %}
+    <p>NATIV - Engineering & Consulting d.o.o.</p>
+    <p>Kralja Petra II 110</p>
+    <p>78000 Banja Luka, Bosna i Hercegovina</p>
+    <p>NIP BIH 404297940005</p>
+  </div>
+    <div id="kupac">
+    <div id="kupac_zaglavlje">
+      {% if ponuda.drzava == 'Bosna i Hercegovina' %}
+             <h4>KUPAC</h4>
+        {% else %}
+      <h4>KUPAC / ERWERBER</h4>
+        {% endif %}
+    </div>
+    <p>{{ ponuda.kupac }}</p>
+    <p>{{ ponuda.kupac.adresa_kupca }}</p>
+    <p>{{ ponuda.kupac.postanski_broj }}, {{ ponuda.kupac.lokacija_grad }}, {{ ponuda.kupac.drzava }}</p>
+    {% if ponuda.drzava == 'Bosna i Hercegovina' %}
+    <p>PIB: {{ ponuda.kupac.pdv_broj }}</p>
+    {% elif ponuda.drzava == 'Germany'%}
+    <p>NIP DE: {{ ponuda.kupac.pdv_broj }}</p>
+        {% else %}
+    <p>NIP PL: {{ ponuda.kupac.pdv_broj }}</p>
+    {% endif %}
+  </div>
+    <div class="mj-racun">
+    <table style="width:100%">
+      <tr>
+        <th>MJESTO IZDAVANJA PONUDE</th>
+        <td class="mj-racun-th" rowspan="2">{{korisnik.mjesto_preduzeca}}</td>
+      </tr>
+      <tr>
+        {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+        <th class="mj-racun-th-2">AUSSTELLUNGSORT</th>
+               {% else %}
+              <th class="mj-racun-th-2"></th>
+          {% endif %}
+      </tr>
+
+    </table>
+
+  </div>
+  <div class="mj-racun-desno">
+    <table style="width:100%">
+      <tr>
+        <th>DATUM IZDAVANJA PONUDE</th>
+        <td class="mj-racun-th" rowspan="2">{{ponuda.datum_ponude|date:'d-m-Y'}}</td>
+      </tr>
+      <tr>
+       {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+        <th class="mj-racun-th-2">AUSSTELLUNGSDATUM</th>
+          {% else %}
+              <th class="mj-racun-th-2"></th>
+          {% endif %}
+      </tr>
+
+    </table>
+  </div>
+{% if prodaja_count <= 4 %}
+<div class="glavna-tabela">
+<table style="width:100%" class="glavna-tabela-tabela">
+      {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr class="glavna-tr-1">
+        <th class="redni-broj">NR</th>
+        <th class="usluga">ARTIKEL / DIENST</th>
+        <th class="kod">CODE</th>
+        <th class="jedinica">MAẞ<br> EINHEIT</th>
+        <th class="kolicina">ANZAHL</th>
+        <th class="cijena-kom">NETO <br>
+        PREIS</th>
+        <th class="pdv">MWST</th>
+        <th class="cijena-bruto">BRUTTO <br> PREIS</th>
+        <th class="cijena-neto-ukupno">NETTO <br> BETRAG</th>
+        <th class="cijena-bruto-ukupno">BRUTTO <br> BETRAG</th>
+      </tr>
+     {% else %}
+     {% endif %}
+      <tr class="glavna-tabela-granice">
+        <th class="redni-broj">RB.</th>
+        <th class="usluga">Opis usluge</th>
+        <th class="kod">Kod</th>
+        <th class="jedinica">Jedinica</th>
+        <th class="kolicina">Količina</th>
+        <th class="cijena-kom">Cijena <br>
+        neto</th>
+        <th class="pdv">PDV</th>
+        <th class="cijena-bruto">Cijena<br>bruto</th>
+        <th class="cijena-neto-ukupno">Iznos<br>neto</th>
+        <th class="cijena-bruto-ukupno">Iznos <br>bruto</th>
+      </tr>
+    {% for p in prodaja %}
+        <tr class="glavna-tabela-granice">
+        <td rowspan="2">{{forloop.counter}}</td>
+        <td class="opis-usluge">{{p.opis_usluge}}</td>
+        <td rowspan="2">{{p.pozicija.pos_NSN}}{{ p.pozicija.pos_broj }}</td>
+        <td rowspan="2">{{p.pozicija.jedinica_mjere}}</td>
+        <td rowspan="2">{{p.kolicina}}</td>
+        <td rowspan="2">{{p.neto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.pdv}} %</td>
+        <td rowspan="2">{{p.bruto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.neto_cijena}}</td>
+        <td rowspan="2">{{p.bruto_cijena}}</td>
+      </tr>
+      <tr>
+        <td class="opis-usluge">{{p.pozicija.naziv_pozicije }}</td>
+      </tr>
+
+        {% endfor %}
+      <tr class="glavna-tabela-suma">
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+          {% if faktura.drzava == 'Bosna i Hercegovina' %}
+                <td colspan="2"><strong>Ukupno u KM: </strong></td>
+          {% else%}
+        <td colspan="2"><strong>Ukupno u EUR: </strong></td>
+              {% endif %}
+        <td><strong>{{neto_suma.net_suma}}</strong></td>
+        <td><strong>{{ bruto_suma.brt_suma}}</strong></td>
+      </tr>
+    </table>
+
+        <div class="valute">
+    <p>Kurs valute: 1.00 BAM: {{valuta.vrijednost_valute}} EUR</p>
+    <p>Dana: {{ponuda.datum_ponude|date:'d-m-Y'}}</p>
+    </div>
+
+<div class="iznos-sa-pdv">
+    <table style="width:100%" class="table-pdv">
+      <tr>
+        <th {% if ponuda.drzava != 'Bosna i Hercegovina' %} rowspan="3" {% else %} rowspan="2" {% endif %}class="no-border"></th>
+        <th colspan="4" class="pdv-zaglavlje">UKUPNO SA PDV-om</th>
+      </tr>
+      <tr class="pdv-sadrzaj-tabele">
+        <th>Netto</th>
+        <th>PDV</th>
+        <th>Iznos PDV-a</th>
+        <th>Brutto</th>
+      </tr>
+      <tr>
+        {% if ponuda.drzava == 'Bosna i Hercegovina' %} <td class="no-border"><strong>Ukupno:</strong></td> {% else %}{% endif %}
+        <td>{{neto_suma.net_suma}} {% if ponuda.drzava != 'Bosna i Hercegovina' %} {{ponuda.valuta}} {% else %} KM {%endif%}</td>
+        <td>{{pdv}} %</td>
+        <td>{{bruto_razlika}} {% if ponuda.drzava != 'Bosna i Hercegovina' %} {{ponuda.valuta}} {% else %} KM {%endif%}</td>
+        <td>{{bruto_suma.brt_suma}} {% if ponuda.drzava != 'Bosna i Hercegovina' %} {{ponuda.valuta}} {% else %} KM {%endif%}</td>
+      </tr>
+       {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr>
+        <td class="no-border"><strong>Ukupno:</strong></td>
+        {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+        <td>{{bruto_suma_bam}} {{valute_bam.valute}}</td>
+        <td></td>
+         <td>{{bruto_razlika}} {{valute_bam.valute}}</td>
+        <td>{{bruto_suma_bam}} {{valute_bam.valute}}</td>
+          {% else %}
+          <td>{{neto_suma.net_suma}} KM</td>
+        <td></td>
+         <td>{{bruto_razlika}} KM</td>
+        <td>{{bruto_suma.brt_suma}} KM</td>
+          {% endif %}
+      </tr>
+      {% else %}
+                {% endif %}
+    </table>
+    </div>
+
+
+    </div>
+        <div class="potpis">
+        <p>{{ korisnik.ime }} {{ korisnik.prezime }}</p>
+        <p>........................................................</p>
+        <p class="potpis-dolje">SASTAVIO-LA / AUSGESTELLT VON</p>
+    </div>
+    <div class="potpis-desno">
+        <br>
+        <p>........................................................</p>
+        <p class="potpis-dolje-desno">ODOBRENO / EMPFANGEN VON</p>
+    </div>
+    {% elif prodaja_count > 4 and prodaja_count <= 20%}
+<div class="glavna-tabela">
+<table style="width:100%" class="glavna-tabela-tabela">
+      {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr class="glavna-tr-1">
+        <th class="redni-broj">NR</th>
+        <th class="usluga">ARTIKEL / DIENST</th>
+        <th class="kod">CODE</th>
+        <th class="jedinica">MAẞ<br> EINHEIT</th>
+        <th class="kolicina">ANZAHL</th>
+        <th class="cijena-kom">NETO <br>
+        PREIS</th>
+        <th class="pdv">MWST</th>
+        <th class="cijena-bruto">BRUTTO <br> PREIS</th>
+        <th class="cijena-neto-ukupno">NETTO <br> BETRAG</th>
+        <th class="cijena-bruto-ukupno">BRUTTO <br> BETRAG</th>
+      </tr>
+     {% else %}
+     {% endif %}
+      <tr class="glavna-tabela-granice">
+        <th class="redni-broj">RB.</th>
+        <th class="usluga">Opis usluge</th>
+        <th class="kod">Kod</th>
+        <th class="jedinica">Jedinica</th>
+        <th class="kolicina">Količina</th>
+        <th class="cijena-kom">Cijena <br>
+        neto</th>
+        <th class="pdv">PDV</th>
+        <th class="cijena-bruto">Cijena<br>bruto</th>
+        <th class="cijena-neto-ukupno">Iznos<br>neto</th>
+        <th class="cijena-bruto-ukupno">Iznos <br>bruto</th>
+      </tr>
+    {% for p in prodaja|slice:':9' %}
+        <tr class="glavna-tabela-granice">
+        <td rowspan="2">{{forloop.counter}}</td>
+        <td class="opis-usluge">{{p.opis_usluge}}</td>
+        <td rowspan="2">{{p.pozicija.pos_NSN}}{{ p.pozicija.pos_broj }}</td>
+        <td rowspan="2">{{p.pozicija.jedinica_mjere}}</td>
+        <td rowspan="2">{{p.kolicina}}</td>
+        <td rowspan="2">{{p.neto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.pdv}} %</td>
+        <td rowspan="2">{{p.bruto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.neto_cijena}}</td>
+        <td rowspan="2">{{p.bruto_cijena}}</td>
+      </tr>
+      <tr>
+        <td class="opis-usluge">{{p.pozicija.naziv_pozicije }}</td>
+      </tr>
+
+        {% endfor %}
+    </table>
+    </div>
+    <div class="page-break"></div>
+    <div class="glavni-2">
+    <div class="glavna-tabela-2">
+        <table style="width:100%" class="glavna-tabela-tabela">
+     {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr class="glavna-tr-1">
+        <th class="redni-broj">NR</th>
+        <th class="usluga">ARTIKEL / DIENST</th>
+        <th class="kod">CODE</th>
+        <th class="jedinica">MAẞ<br> EINHEIT</th>
+        <th class="kolicina">ANZAHL</th>
+        <th class="cijena-kom">NETO <br>
+        PREIS</th>
+        <th class="pdv">MWST</th>
+        <th class="cijena-bruto">BRUTTO <br> PREIS</th>
+        <th class="cijena-neto-ukupno">NETTO <br> BETRAG</th>
+        <th class="cijena-bruto-ukupno">BRUTTO <br> BETRAG</th>
+      </tr>
+     {% else %}
+     {% endif %}
+      <tr class="glavna-tabela-granice">
+        <th class="redni-broj">RB.</th>
+        <th class="usluga">Opis usluge</th>
+        <th class="kod">Kod</th>
+        <th class="jedinica">Jedinica</th>
+        <th class="kolicina">Količina</th>
+        <th class="cijena-kom">Cijena <br>
+        neto</th>
+        <th class="pdv">PDV</th>
+        <th class="cijena-bruto">Cijena<br>bruto</th>
+        <th class="cijena-neto-ukupno">Iznos<br>neto</th>
+        <th class="cijena-bruto-ukupno">Iznos <br>bruto</th>
+      </tr>
+        {% for p in prodaja|slice:'9:' %}
+        <tr class="glavna-tabela-granice">
+        <td rowspan="2">{{forloop.counter|add:'9'}}</td>
+        <td class="opis-usluge">{{p.opis_usluge}}</td>
+        <td rowspan="2">{{p.pozicija.pos_NSN}}{{ p.pozicija.pos_broj }}</td>
+        <td rowspan="2">{{p.pozicija.jedinica_mjere}}</td>
+        <td rowspan="2">{{p.kolicina}}</td>
+        <td rowspan="2">{{p.neto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.pdv}} %</td>
+        <td rowspan="2">{{p.bruto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.neto_cijena}}</td>
+        <td rowspan="2">{{p.bruto_cijena}}</td>
+      </tr>
+      <tr>
+        <td class="opis-usluge">{{p.pozicija.naziv_pozicije }}</td>
+      </tr>
+
+        {% endfor %}
+      <tr class="glavna-tabela-suma">
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        {% if faktura.drzava == 'Bosna i Hercegovina' %}
+                <td colspan="2"><strong>Ukupno u BAM: </strong></td>
+          {% else%}
+        <td colspan="2"><strong>Ukupno u EUR: </strong></td>
+              {% endif %}
+          <td><strong>{{neto_suma.net_suma}}</strong></td>
+        <td><strong>{{ bruto_suma.brt_suma}}</strong></td>
+      </tr>
+    </table>
+
+    <div class="valute">
+    <p>Kurs valute: 1.00 BAM: {{valuta.vrijednost_valute}} EUR</p>
+    <p>Dana: {{ponuda.datum_ponude|date:'d-m-Y'}}</p>
+    </div>
+
+ <div class="iznos-sa-pdv">
+    <table style="width:100%" class="table-pdv">
+      <tr>
+        <th {% if ponuda.drzava != 'Bosna i Hercegovina' %} rowspan="3" {% else %} rowspan="2" {% endif %}class="no-border"></th>
+        <th colspan="4" class="pdv-zaglavlje">UKUPNO SA PDV-om</th>
+      </tr>
+      <tr class="pdv-sadrzaj-tabele">
+        <th>Netto</th>
+        <th>PDV</th>
+        <th>Iznos PDV-a</th>
+        <th>Brutto</th>
+      </tr>
+      <tr>
+        {% if ponuda.drzava == 'Bosna i Hercegovina' %} <td class="no-border"><strong>Ukupno:</strong></td> {% else %}{% endif %}
+        <td>{{neto_suma.net_suma}} {% if ponuda.drzava != 'Bosna i Hercegovina' %} {{ponuda.valuta}} {% else %} KM {%endif%}</td>
+        <td>{{pdv}} %</td>
+        <td>{{bruto_razlika}} {% if ponuda.drzava != 'Bosna i Hercegovina' %} {{ponuda.valuta}} {% else %} KM {%endif%}</td>
+        <td>{{bruto_suma.brt_suma}} {% if ponuda.drzava != 'Bosna i Hercegovina' %} {{ponuda.valuta}} {% else %} KM {%endif%}</td>
+      </tr>
+       {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr>
+        <td class="no-border"><strong>Ukupno:</strong></td>
+        {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+        <td>{{bruto_suma_bam}} {{valute_bam.valute}}</td>
+        <td></td>
+         <td>{{bruto_razlika}} {{valute_bam.valute}}</td>
+        <td>{{bruto_suma_bam}} {{valute_bam.valute}}</td>
+          {% else %}
+          <td>{{neto_suma.net_suma}} KM</td>
+        <td></td>
+         <td>{{bruto_razlika}} KM</td>
+        <td>{{bruto_suma.brt_suma}} KM</td>
+          {% endif %}
+      </tr>
+      {% else %}
+                {% endif %}
+    </table>
+    </div>
+
+
+    </div>
+
+    <div class="potpis">
+        <p>{{ korisnik.ime }} {{ korisnik.prezime }}</p>
+        <p>........................................................</p>
+        <p class="potpis-dolje">SASTAVIO-LA / AUSGESTELLT VON</p>
+    </div>
+    <div class="potpis-desno">
+        <br>
+        <p>........................................................</p>
+        <p class="potpis-dolje-desno">ODOBRENO / EMPFANGEN VON</p>
+    </div>
+
+{% elif prodaja_count > 20 and prodaja_count <= 55%}
+    <div class="glavna-tabela">
+<table style="width:100%" class="glavna-tabela-tabela">
+     {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr class="glavna-tr-1">
+        <th class="redni-broj">NR</th>
+        <th class="usluga">ARTIKEL / DIENST</th>
+        <th class="kod">CODE</th>
+        <th class="jedinica">MAẞ<br> EINHEIT</th>
+        <th class="kolicina">ANZAHL</th>
+        <th class="cijena-kom">NETO <br>
+        PREIS</th>
+        <th class="pdv">MWST</th>
+        <th class="cijena-bruto">BRUTTO <br> PREIS</th>
+        <th class="cijena-neto-ukupno">NETTO <br> BETRAG</th>
+        <th class="cijena-bruto-ukupno">BRUTTO <br> BETRAG</th>
+      </tr>
+     {% else %}
+     {% endif %}
+      <tr class="glavna-tabela-granice">
+        <th class="redni-broj">RB.</th>
+        <th class="usluga">Opis usluge</th>
+        <th class="kod">Kod</th>
+        <th class="jedinica">Jedinica</th>
+        <th class="kolicina">Količina</th>
+        <th class="cijena-kom">Cijena <br>
+        neto</th>
+        <th class="pdv">PDV</th>
+        <th class="cijena-bruto">Cijena<br>bruto</th>
+        <th class="cijena-neto-ukupno">Iznos<br>neto</th>
+        <th class="cijena-bruto-ukupno">Iznos <br>bruto</th>
+      </tr>
+    {% for p in prodaja|slice:':9' %}
+        <tr class="glavna-tabela-granice">
+        <td rowspan="2">{{forloop.counter}}</td>
+        <td class="opis-usluge">{{p.opis_usluge}}</td>
+        <td rowspan="2">{{p.pozicija.pos_NSN}}{{ p.pozicija.pos_broj }}</td>
+        <td rowspan="2">{{p.pozicija.jedinica_mjere}}</td>
+        <td rowspan="2">{{p.kolicina}}</td>
+        <td rowspan="2">{{p.neto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.pdv}} %</td>
+        <td rowspan="2">{{p.bruto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.neto_cijena}}</td>
+        <td rowspan="2">{{p.bruto_cijena}}</td>
+      </tr>
+      <tr>
+        <td class="opis-usluge">{{p.pozicija.naziv_pozicije }}</td>
+      </tr>
+
+        {% endfor %}
+    </table>
+    </div>
+
+    <div class="page-break"></div>
+    <div class="glavni-2">
+    <div class="glavna-tabela-2">
+        <table style="width:100%" class="glavna-tabela-tabela">
+     {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr class="glavna-tr-1">
+        <th class="redni-broj">NR</th>
+        <th class="usluga">ARTIKEL / DIENST</th>
+        <th class="kod">CODE</th>
+        <th class="jedinica">MAẞ<br> EINHEIT</th>
+        <th class="kolicina">ANZAHL</th>
+        <th class="cijena-kom">NETO <br>
+        PREIS</th>
+        <th class="pdv">MWST</th>
+        <th class="cijena-bruto">BRUTTO <br> PREIS</th>
+        <th class="cijena-neto-ukupno">NETTO <br> BETRAG</th>
+        <th class="cijena-bruto-ukupno">BRUTTO <br> BETRAG</th>
+      </tr>
+     {% else %}
+     {% endif %}
+      <tr class="glavna-tabela-granice">
+        <th class="redni-broj">RB.</th>
+        <th class="usluga">Opis usluge</th>
+        <th class="kod">Kod</th>
+        <th class="jedinica">Jedinica</th>
+        <th class="kolicina">Količina</th>
+        <th class="cijena-kom">Cijena <br>
+        neto</th>
+        <th class="pdv">PDV</th>
+        <th class="cijena-bruto">Cijena<br>bruto</th>
+        <th class="cijena-neto-ukupno">Iznos<br>neto</th>
+        <th class="cijena-bruto-ukupno">Iznos <br>bruto</th>
+      </tr>
+        {% for p in prodaja|slice:'9:26' %}
+        <tr class="glavna-tabela-granice">
+        <td rowspan="2">{{forloop.counter|add:'9'}}</td>
+        <td class="opis-usluge">{{p.opis_usluge}}</td>
+        <td rowspan="2">{{p.pozicija.pos_NSN}}{{ p.pozicija.pos_broj }}</td>
+        <td rowspan="2">{{p.pozicija.jedinica_mjere}}</td>
+        <td rowspan="2">{{p.kolicina}}</td>
+        <td rowspan="2">{{p.neto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.pdv}} %</td>
+        <td rowspan="2">{{p.bruto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.neto_cijena}}</td>
+        <td rowspan="2">{{p.bruto_cijena}}</td>
+      </tr>
+      <tr>
+        <td class="opis-usluge">{{p.pozicija.naziv_pozicije }}</td>
+      </tr>
+        {% endfor %}
+        </table>
+    </div>
+    </div>
+    {% if prodaja_count > 27 and prodaja_count <= 55%}
+    <div class="page-break"></div>
+    <div class="glavni-2">
+    <div class="glavna-tabela-2">
+        <table style="width:100%" class="glavna-tabela-tabela">
+      {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr class="glavna-tr-1">
+        <th class="redni-broj">NR</th>
+        <th class="usluga">ARTIKEL / DIENST</th>
+        <th class="kod">CODE</th>
+        <th class="jedinica">MAẞ<br> EINHEIT</th>
+        <th class="kolicina">ANZAHL</th>
+        <th class="cijena-kom">NETO <br>
+        PREIS</th>
+        <th class="pdv">MWST</th>
+        <th class="cijena-bruto">BRUTTO <br> PREIS</th>
+        <th class="cijena-neto-ukupno">NETTO <br> BETRAG</th>
+        <th class="cijena-bruto-ukupno">BRUTTO <br> BETRAG</th>
+      </tr>
+     {% else %}
+     {% endif %}
+      <tr class="glavna-tabela-granice">
+        <th class="redni-broj">RB.</th>
+        <th class="usluga">Opis usluge</th>
+        <th class="kod">Kod</th>
+        <th class="jedinica">Jedinica</th>
+        <th class="kolicina">Količina</th>
+        <th class="cijena-kom">Cijena <br>
+        neto</th>
+        <th class="pdv">PDV</th>
+        <th class="cijena-bruto">Cijena<br>bruto</th>
+        <th class="cijena-neto-ukupno">Iznos<br>neto</th>
+        <th class="cijena-bruto-ukupno">Iznos <br>bruto</th>
+      </tr>
+        {% for p in prodaja|slice:'26:43' %}
+        <tr class="glavna-tabela-granice">
+        <td rowspan="2">{{forloop.counter|add:'26'}}</td>
+        <td class="opis-usluge">{{p.opis_usluge}}</td>
+        <td rowspan="2">{{p.pozicija.pos_NSN}}{{ p.pozicija.pos_broj }}</td>
+        <td rowspan="2">{{p.pozicija.jedinica_mjere}}</td>
+        <td rowspan="2">{{p.kolicina}}</td>
+        <td rowspan="2">{{p.neto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.pdv}} %</td>
+        <td rowspan="2">{{p.bruto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.neto_cijena}}</td>
+        <td rowspan="2">{{p.bruto_cijena}}</td>
+      </tr>
+      <tr>
+        <td class="opis-usluge">{{p.pozicija.naziv_pozicije }}</td>
+      </tr>
+        {% endfor %}
+        </table>
+    </div>
+    </div>
+        {% endif %}
+           <div class="page-break"></div>
+
+            <div class="glavni-2">
+    <div class="glavna-tabela-2">
+        <table style="width:100%" class="glavna-tabela-tabela">
+      {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr class="glavna-tr-1">
+        <th class="redni-broj">NR</th>
+        <th class="usluga">ARTIKEL / DIENST</th>
+        <th class="kod">CODE</th>
+        <th class="jedinica">MAẞ<br> EINHEIT</th>
+        <th class="kolicina">ANZAHL</th>
+        <th class="cijena-kom">NETO <br>
+        PREIS</th>
+        <th class="pdv">MWST</th>
+        <th class="cijena-bruto">BRUTTO <br> PREIS</th>
+        <th class="cijena-neto-ukupno">NETTO <br> BETRAG</th>
+        <th class="cijena-bruto-ukupno">BRUTTO <br> BETRAG</th>
+      </tr>
+     {% else %}
+     {% endif %}
+      <tr class="glavna-tabela-granice">
+        <th class="redni-broj">RB.</th>
+        <th class="usluga">Opis usluge</th>
+        <th class="kod">Kod</th>
+        <th class="jedinica">Jedinica</th>
+        <th class="kolicina">Količina</th>
+        <th class="cijena-kom">Cijena <br>
+        neto</th>
+        <th class="pdv">PDV</th>
+        <th class="cijena-bruto">Cijena<br>bruto</th>
+        <th class="cijena-neto-ukupno">Iznos<br>neto</th>
+        <th class="cijena-bruto-ukupno">Iznos <br>bruto</th>
+      </tr>
+        {% if prodaja_count <= 39 %}
+        {% for p in prodaja|slice:'39:52' %}
+            <tr class="glavna-tabela-granice">
+        <td rowspan="2">{{forloop.counter|add:'26'}}</td>
+        <td class="opis-usluge">{{p.opis_usluge}}</td>
+        <td rowspan="2">{{p.pozicija.pos_NSN}}{{ p.pozicija.pos_broj }}</td>
+        <td rowspan="2">{{p.pozicija.jedinica_mjere}}</td>
+        <td rowspan="2">{{p.kolicina}}</td>
+        <td rowspan="2">{{p.neto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.pdv}} %</td>
+        <td rowspan="2">{{p.bruto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.neto_cijena}}</td>
+        <td rowspan="2">{{p.bruto_cijena}}</td>
+      </tr>
+      <tr>
+        <td class="opis-usluge">{{p.pozicija.naziv_pozicije }}</td>
+      </tr>
+            {% endfor %}
+        {% endif %}
+        {% if prodaja_count > 39 and prodaja_count <= 55 %}
+            {% for p in prodaja|slice:'43:55' %}
+        <tr class="glavna-tabela-granice">
+       <td rowspan="2">{{forloop.counter|add:'43'}}</td>
+        <td class="opis-usluge">{{p.opis_usluge}}</td>
+        <td rowspan="2">{{p.pozicija.pos_NSN}}{{ p.pozicija.pos_broj }}</td>
+        <td rowspan="2">{{p.pozicija.jedinica_mjere}}</td>
+        <td rowspan="2">{{p.kolicina}}</td>
+        <td rowspan="2">{{p.neto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.pdv}} %</td>
+        <td rowspan="2">{{p.bruto_cijena_proizvoda}}</td>
+        <td rowspan="2">{{p.neto_cijena}}</td>
+        <td rowspan="2">{{p.bruto_cijena}}</td>
+      </tr>
+      <tr>
+        <td class="opis-usluge">{{p.pozicija.naziv_pozicije }}</td>
+      </tr>
+        {% endfor %}
+            {% endif %}
+      <tr class="glavna-tabela-suma">
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        {% if faktura.drzava == 'Bosna i Hercegovina' %}
+                <td colspan="2"><strong>Ukupno u BAM: </strong></td>
+          {% else%}
+        <td colspan="2"><strong>Ukupno u EUR: </strong></td>
+              {% endif %}
+          <td><strong>{{neto_suma.net_suma}}</strong></td>
+        <td><strong>{{ bruto_suma.brt_suma}}</strong></td>
+      </tr>
+    </table>
+
+    <div class="valute">
+    <p>Kurs valute: 1.00 BAM: {{valuta.vrijednost_valute}} EUR</p>
+    <p>Dana: {{ponuda.datum_ponude|date:'d-m-Y'}}</p>
+    </div>
+
+ <div class="iznos-sa-pdv">
+    <table style="width:100%" class="table-pdv">
+      <tr>
+        <th {% if ponuda.drzava != 'Bosna i Hercegovina' %} rowspan="3" {% else %} rowspan="2" {% endif %}class="no-border"></th>
+        <th colspan="4" class="pdv-zaglavlje">UKUPNO SA PDV-om</th>
+      </tr>
+      <tr class="pdv-sadrzaj-tabele">
+        <th>Netto</th>
+        <th>PDV</th>
+        <th>Iznos PDV-a</th>
+        <th>Brutto</th>
+      </tr>
+      <tr>
+        {% if ponuda.drzava == 'Bosna i Hercegovina' %} <td class="no-border"><strong>Ukupno:</strong></td> {% else %}{% endif %}
+        <td>{{neto_suma.net_suma}} {% if ponuda.drzava != 'Bosna i Hercegovina' %} {{ponuda.valuta}} {% else %} KM {%endif%}</td>
+        <td>{{pdv}} %</td>
+        <td>{{bruto_razlika}} {% if ponuda.drzava != 'Bosna i Hercegovina' %} {{ponuda.valuta}} {% else %} KM {%endif%}</td>
+        <td>{{bruto_suma.brt_suma}} {% if ponuda.drzava != 'Bosna i Hercegovina' %} {{ponuda.valuta}} {% else %} KM {%endif%}</td>
+      </tr>
+       {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+      <tr>
+        <td class="no-border"><strong>Ukupno:</strong></td>
+        {% if ponuda.drzava != 'Bosna i Hercegovina' %}
+        <td>{{bruto_suma_bam}} {{valute_bam.valute}}</td>
+        <td></td>
+         <td>{{bruto_razlika}} {{valute_bam.valute}}</td>
+        <td>{{bruto_suma_bam}} {{valute_bam.valute}}</td>
+          {% else %}
+          <td>{{neto_suma.net_suma}} KM</td>
+        <td></td>
+         <td>{{bruto_razlika}} KM</td>
+        <td>{{bruto_suma.brt_suma}} KM</td>
+          {% endif %}
+      </tr>
+      {% else %}
+                {% endif %}
+    </table>
+    </div>
+
+
+    </div>
+<div class="potpis">
+        <p>{{ korisnik.ime }} {{ korisnik.prezime }}</p>
+        <p>........................................................</p>
+        <p class="potpis-dolje">SASTAVIO-LA / AUSGESTELLT VON</p>
+    </div>
+    <div class="potpis-desno">
+        <br>
+        <p>........................................................</p>
+        <p class="potpis-dolje-desno">ODOBRENO / EMPFANGEN VON</p>
+    </div>
+{% endif %}
+
+
+
+</div>
+
+</body>
+</html>

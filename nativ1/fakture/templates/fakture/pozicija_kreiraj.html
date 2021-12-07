@@ -1,0 +1,15 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block fakture %}
+    <h2>Kreiraj novu poziciju!</h2>
+    <form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Spasi poziciju">
+    </form>
+    <br>
+    <form>
+    <button formaction="{% url 'fakture:index' %}">Vrati na početnu</button>
+    </form>
+{% endblock %}

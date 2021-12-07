@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      {% load static %}
+  <style>
+@page {
+  size: A4;
+  margin: 0;
+
+
+}
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+    #page-break{ page-break-after: always}
+  /* ... the rest of the rules ... */
+}
+
+.glavni{
+  position: relative;
+  width: 100%;
+  height: 100%;
+    margin: -8px;
+    font-family: "Arial Narrow", Arial sans-serif;
+}
+
+#logo{
+  position: absolute;
+  margin-top: 50px;
+  margin-left: 30px;
+}
+
+#logo-samo img{
+  height: 50px;
+  width: 230px;
+  margin: 0;
+  padding: 0;
+}
+#logo-samo{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+}
+
+#logo-samo p{
+  padding: 0px;
+  margin: 0;
+  color: #999999;
+}
+
+#zaglavlje_adresa{
+  position: absolute;
+  right: 30px;
+  top: 50px;
+  display: block;
+  text-align: right;
+  margin-right: 0;
+  font-size: 13px;
+}
+
+#zaglavlje_adresa p{
+  padding: 2px 2px 0 2px;
+  margin: 0;
+}
+#hr-1{
+position : relative;
+top : 163px;
+left : 30px;
+width : auto;
+text-align : center;
+margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0px;
+  margin-right: 60px;
+border: #888888 1px dashed;
+}
+#racun{
+  position: absolute;
+  top: 173px;
+  left: 30px;
+  margin: 0;
+
+}
+#racun h4{
+  padding: 0 0 3px 0;
+  margin: 0;
+}
+#racun p{
+  font-size: 13px;
+  color: #999999;
+  padding: 0 0 3px 0;
+  margin: 0 0 0 1px;
+}
+
+#racun-broj{
+  position: absolute;
+  top: 173px;
+  right: 30px;
+  text-align: right;
+}
+#racun-broj h4{
+  padding: 0;
+  margin: 0;
+}
+
+#hr-2{
+position : relative;
+top : 215px;
+left : 30px;
+width : auto;
+text-align : center;
+margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0px;
+  margin-right: 60px;
+border: #888888 1px dashed;
+}
+#prodavac{
+  position: absolute;
+  top: 230px;
+  left: 30px;
+  border: #888888 dashed 1px;
+  display: block;
+  text-align: left;
+  height: 105px;
+  width: 350px;
+}
+#prodavac_zaglavlje{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: #cccccc;
+  border-bottom: #888888 dashed 1px;
+  text-align: center;
+}
+#prodavac_zaglavlje h4{
+  margin: 0;
+  padding: 3px 0 3px 0;
+  font-size: 14px;
+}
+
+#prodavac p{
+  margin: 0;
+  padding: 2px 2px 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+#kupac{
+  position: absolute;
+  top: 230px;
+  right: 30px;
+  border: #888888 dashed 1px;
+  display: block;
+  text-align: left;
+  height: 105px;
+  width: 350px;
+}
+#kupac_zaglavlje{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: #cccccc;
+  border-bottom: #888888 dashed 1px;
+  text-align: center;
+}
+#kupac_zaglavlje h4{
+  margin: 0;
+  padding: 3px 0 3px 0;
+  font-size: 14px;
+}
+#kupac p{
+  margin: 0;
+  padding: 2px 2px 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.mj-racun{
+  position: absolute;
+  top: 350px;
+  left: 30px;
+  font-size: 13px;
+  display: block;
+  text-align: left;
+  height: 105px;
+  width: 354px;
+
+}
+.mj-racun-th {
+  border: 1px dashed #888888;
+  border-collapse: collapse;
+  width: 160px;
+   text-align: center;
+   font-weight: bold;
+
+}
+.mj-racun th, td {
+  padding: 0 0 2px 0;
+
+}
+.mj-racun th{
+  font-size: 11px;
+  font-weight: bold;
+
+}
+.mj-racun-th-2 {
+  color: #999999;
+  text-align: left;
+}
+.mj-racun-desno{
+  position: absolute;
+  top: 350px;
+  right: 28px;
+  display: block;
+  text-align: left;
+  height: 105px;
+  width: 356px;
+
+}
+.mj-racun-desno th, td {
+  padding: 0 0 2px 0;
+
+}
+
+.mj-racun-desno th{
+  font-size: 11px;
+  text-align: left;
+}
+.mj-racun-desno td{
+  text-align: center;
+   font-weight: bold;
+}
+#glavna-tabela{
+  position: absolute;
+  top: 465px;
+  left: 28px;
+  display: block;
+  text-align: left;
+  height: auto;
+  width: 92.4%;
+
+}
+#glavna-tr-1 {
+  font-size: 11px;
+  color: #999999;
+
+}
+#glavna-tabela-tabela th, td{
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.glavna-tabela-granice th, td{
+    border: 1px dashed #888888;
+  border-collapse: collapse;
+
+}
+#glavna-tabela-tabela {
+   border-collapse: collapse;
+  position: relative;
+}
+.glavna-tabela-granice th{
+  height: 25px;
+  background-color: #cccccc;
+}
+.glavna-tabela-granice td{
+  height: 25px;
+}
+.glavna-tabela-suma td{
+  height: 25px;
+  font-weight: bold;
+}
+.no-border{
+  border: none;
+}
+#valute{
+  position: absolute;
+  border: 1px dashed #888888;
+  width: 280px;
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 0;
+}
+
+#valute p{
+  padding: 1px 1px 1px 1px;
+  margin: 0;
+  font-size: 13px;
+}
+#iznos-sa-pdv{
+  position: absolute;
+  margin-top: 10px;
+  right: 0;
+  width: 420px;
+}
+#iznos-sa-pdv th, td {
+  margin: 0;
+  padding: 0;
+
+  font-size: 12px;
+}
+.pdv-zaglavlje{
+  text-align: center;
+  height: 25px;
+    border: 1px dashed #888888;
+
+}
+.table-pdv{
+  border-collapse: collapse;
+
+}
+#pdv-sadrzaj-tabele th{
+  text-align: center;
+  border: 1px dashed #888888;
+   background-color: #cccccc;
+   height: 23px;
+}
+.ziro-racun{
+  position: absolute;
+  margin-top: 80px;
+  left: -2px;
+  height: 130px;
+  width: 280px;
+  border: 1px dashed #888888;
+}
+#ziro-racun-naslov{
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 12px;
+  text-align: center;
+  font-weight: bold;
+  background-color: #cccccc;
+  height: 27px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-bottom: #888888 1px dashed;
+}
+#ziro-racun-naslov p{
+
+  padding: 6px 0 0 0;
+  margin: 0;
+}
+#placeno-za-platiti{
+    position: absolute;
+  margin-top: 130px;
+  right: 0;
+  width: 343px;
+}
+#placeno-za-platiti th, td{
+    margin: 0;
+  padding: 0;
+  font-size: 12px;
+  height: 25px;
+}
+.pzp-zaglavlje{
+  background-color: #cccccc;
+    text-align: center;
+  height: 25px;
+    border: 1px dashed #888888;
+}
+.platiti-njemacki{
+   border: 1px dashed #888888;
+  text-align: center;
+  color: #999999;
+  background-color: #cccccc;
+}
+footer{
+  position: absolute;
+  bottom: 0px;
+  left: 30px;
+  display: block;
+  text-align:center;
+  background-color: #555555;
+}
+#footer-lijevo p{
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+}
+#footer-lijevo{
+  border: black 1px solid;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#footer-desno p{
+  left: 0;
+    margin: 0;
+  padding: 0;
+  font-size: 11px;
+}
+#footer-desno{
+  border: black solid 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+  </style>
+</head>
+<body>
+<div class="glavni">
+<div id="logo">
+  <div id="logo-samo">
+   <img src="/media/slike/logo-nativ.png" alt="Slika loga" >
+    <p>Engineering & Consulting d.o.o</p>
+  </div>
+</div>
+  <div id="zaglavlje_adresa">
+    <p>NATIV - Engineering & Consulting d.o.o.</p>
+    <p>78000 Banja Luka, Kralja Petra II 110</p>
+    <p>+387 (0) 51 / 921 - 034</p>
+    <p>PIB: 404297940005</p>
+    <p><link href="https://nativ.group/">www.nativ.group, info.bih@nativ.group</p>
+  </div>
+  <hr id="hr-1">
+  <div id="racun">
+    <h4>RAČUN</h4>
+    <p>RECHNUNG</p>
+  </div>
+  <div id="racun-broj">
+    <h4>Broj: FV {{faktura.broj_fakture}}/{{faktura.datum_fakture|date:'Y'}} </h4>
+  </div>
+  <hr id="hr-2">
+  <div id="prodavac">
+    <div id="prodavac_zaglavlje">
+      <h4>PRODAVAČ / VERKÄUFER</h4>
+    </div>
+    <p>NATIVE - Engineering & Consulting d.o.o.</p>
+    <p>Kralja Petra II 110</p>
+    <p>78000 Banja Luka, Bosna i Hercegovina</p>
+    <p>NIP BIH 404297940005</p>
+  </div>
+    <div id="kupac">
+    <div id="kupac_zaglavlje">
+      <h4>KUPAC / ERWERBER</h4>
+    </div>
+    <p>NATIVE EPS - Engineering & Property service GmbH</p>
+    <p>Röntgenstr. 37</p>
+    <p>71229, Leonberg, Germany</p>
+        {{ bruto_suma.brt_suma}}
+  </div>
+    <div class="mj-racun">
+    <table style="width:100%">
+      <tr>
+        <th>MJESTO IZDAVANJA RAČUNA</th>
+        <td class="mj-racun-th" rowspan="2">{{1111}}</td>
+      </tr>
+      <tr>
+        <th class="mj-racun-th-2">AUSSTELLUNGSORT</th>
+      </tr>
+      <tr>
+        <th>PLATITI DO</th>
+        <td class="mj-racun-th" rowspan="2">{{1111}}</td>
+      </tr>
+      <tr>
+        <th class="mj-racun-th-2">ZAHLUNGSTERMIN</th>
+      </tr>
+      <tr>
+        <th>NAČIN PLAĆANJA</th>
+        <td class="mj-racun-th" rowspan="2">{{1111}}</td>
+      </tr>
+      <tr>
+        <th class="mj-racun-th-2">ZAHLUNGSFORM</th>
+      </tr>
+    </table>
+
+  </div>
+  <div class="mj-racun-desno">
+    <table style="width:100%">
+      <tr>
+        <th>DATUM IZDAVANJA RAČUNA</th>
+        <td class="mj-racun-th" rowspan="2">{{1111}}</td>
+      </tr>
+      <tr>
+        <th class="mj-racun-th-2">AUSSTELLUNGSDATUM</th>
+      </tr>
+      <tr>
+        <th>DATUM IZVRŠENJA USLUGE</th>
+        <td class="mj-racun-th" rowspan="2">{{1111}}</td>
+      </tr>
+      <tr>
+        <th class="mj-racun-th-2">LIEFERDATUM</th>
+      </tr>
+
+    </table>
+  </div>
+ <div id="glavna-tabela">
+    <table style="width:100%" id="glavna-tabela-tabela">
+      <tr id="glavna-tr-1">
+        <th>NR</th>
+        <th>ARTIKEL / DIENST</th>
+        <th>CODE</th>
+        <th>MAẞ<br> EINHEIT</th>
+        <th>ANZAHL</th>
+        <th>NETO <br>
+        PREIS</th>
+        <th>MWST</th>
+        <th>BRUTTO <br> PREIS</th>
+        <th>NETTO <br> BETRAG</th>
+        <th>BRUTTO <br> BETRAG</th>
+      </tr>
+      <tr class="glavna-tabela-granice">
+        <th>RB.</th>
+        <th>Opis usluge</th>
+        <th>Kod</th>
+        <th>Jedinica</th>
+        <th>Količina</th>
+        <th>Cijena <br>
+        netto</th>
+        <th>PDV</th>
+        <th>Cijena<br>brutto</th>
+        <th>Iznos<br>netto</th>
+        <th>Iznos <br>brutto</th>
+      </tr>
+        {% for p in prodaja %}
+        <tr class="glavna-tabela-granice">
+        <td rowspan="2">{{1111}}</td>
+        <td>{{prodaja.usluga}}</td>
+        <td rowspan="2">{{1111}}</td>
+        <td rowspan="2">{{1111}}</td>
+        <td rowspan="2">{{1111}}</td>
+        <td rowspan="2">{{1111}}</td>
+        <td rowspan="2">{{1111}}</td>
+        <td rowspan="2">{{1111}}</td>
+        <td rowspan="2">{{1111}}</td>
+        <td rowspan="2">{{1111}}</td>
+      </tr>
+      <tr>
+        <td>{{prodaja.usluga}}</td>
+      </tr>
+
+        {% endfor %}
+      <tr class="glavna-tabela-suma">
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td class="no-border"></td>
+        <td colspan="2"><strong>Zusamen in EUR: </strong></td>
+        <td><strong>{{1111}}</strong></td>
+        <td><strong>{{1111}}</strong></td>
+      </tr>
+    </table>
+
+    <div id="valute">
+    <p>Kurs valute {{1111}}: {{1111}}</p>
+    <p>Dana {{1111}}</p>
+    </div>
+    <div id="iznos-sa-pdv">
+    <table style="width:100%" class="table-pdv">
+      <tr>
+        <th rowspan="3" class="no-border"></th>
+        <th colspan="4" class="pdv-zaglavlje">UKUPNO SA PDV-om</th>
+      </tr>
+      <tr id="pdv-sadrzaj-tabele">
+        <th>Netto</th>
+        <th>PDV</th>
+        <th>Iznos PDV-a</th>
+        <th>Brutto</th>
+      </tr>
+      <tr>
+        <td>{{1111}} {{1111}}<br>
+            {{1111}} {{1111}}</td>
+        <td>{{1111}}%</td>
+        <td>{{1111}} {{1111}}<br>
+            {{1111}} {{1111}}</td>
+        <td>{{1111}} {{1111}}<br>
+            {{1111}} {{1111}}</td>
+      </tr>
+      <tr>
+        <td class="no-border"><strong>Ukupno:</strong></td>
+        <td>{{1111}} {{1111}}<br>
+            {{1111}} {{1111}}</td>
+        <td></td>
+        <td>{{1111}} {{1111}}<br>
+            {{1111}} {{1111}}</td>
+        <td>{{1111}} {{1111}}<br>
+            {{1111}} {{1111}}</td>
+      </tr>
+    </table>
+    </div>
+    <div class="ziro-racun">
+      <div id="ziro-racun-naslov">
+        <p>UPLATA NA ŽIRO RAČUN</p>
+      </div>
+    </div>
+    <div id="placeno-za-platiti">
+      <table style="width:100%" class="table-pdv">
+        <tr>
+          <th class="pzp-zaglavlje">Plaćeno</th>
+          <th class="pzp-zaglavlje">Za platiti</th>
+          <th class="pzp-zaglavlje">Valuta</th>
+        </tr>
+        <tr>
+          <td>{{1111}}</td>
+          <td>{{1111}}</td>
+          <td>{{1111}}</td>
+        </tr>
+        <tr>
+          <th class="platiti-njemacki">BEZAHLT</th>
+          <th class="platiti-njemacki">ZU ZAHLEN</th>
+          <th class="platiti-njemacki">WÄHRUNG</th>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+
+</body>
+</html>

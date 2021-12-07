@@ -1,0 +1,308 @@
+body {
+   margin: 0;
+   padding: 0;
+}
+
+.glavni-nativ{
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    height: 7500px;
+    background-color: aliceblue;
+    border: darkblue solid 1px;
+}
+#header{
+    position: absolute;
+    height: 90px;
+    width: 100%;
+    border: darkblue solid 1px;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+#logo{
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 200px;
+    height: 70px;
+
+}
+#logo img{
+    width: 200px;
+    height: 70px;
+    margin: 0;
+}
+#header h2{
+    position: absolute;
+    top: 15px;
+    left: 450px;
+    color: darkblue;
+}
+#login{
+    position: absolute;
+    top: 10px;
+    right: 248.5px;
+}
+#login a{
+    text-decoration: none;
+    color: darkblue;
+}
+.trenutno-prijavljen{
+    position: absolute;
+    top: 40px;
+    right: 100px;
+    color: darkblue;
+}
+.navigacija{
+    position: absolute;
+    height: auto;
+    width: 150px;
+    top: 130px;
+    left: 17px;
+
+}
+.navigacija-sadrzaj li{
+    list-style: none;
+    margin: 0;
+    padding: 3px 0 3px 2px;
+    text-align: left;
+    color: darkblue;
+    font-weight: bold;
+}
+.navigacija-sadrzaj ul{
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.navigacija-sadrzaj a{
+     text-decoration: none;
+    color: darkblue;
+    font-weight: bold;
+}
+.navigacija-sadrzaj a:hover{
+    background-color: darkblue;
+    color: white;
+    border-radius: 3px;
+}
+#opcije{
+    background-color: darkblue;
+    color: white;
+    border-radius: 4px;
+}
+#pocetna{
+    position: absolute;
+    height: auto;
+    margin: 0;
+    top: 100px;
+    left: 19px;
+
+}
+#pocetna a{
+    text-decoration: none;
+    color: darkblue;
+    font-weight: bold;
+}
+.fakture{
+    position: absolute;
+    top: 100px;
+    left: 250px;
+    color: darkblue;
+    margin: 0;
+   width: auto;
+
+
+}
+.fakture-lista-naslovna{
+    margin-bottom: 20px;
+}
+.fakture-lista-naslovna h2{
+    margin: 0;
+    padding: 0 0 5px 4px;
+    background-color: darkblue;
+    color: white;
+    border: darkblue solid 1px;
+    border-bottom: none;
+    border-radius: 4px;
+}
+.fakture-lista-naslovna ul{
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: darkblue solid 1px;
+    border-radius: 4px;
+}
+.fakture-lista-naslovna a{
+     text-decoration: none;
+    color: darkblue;
+    font-weight: bold;
+}
+.fakture-lista-naslovna li{
+    list-style: none;
+    margin: 0;
+    padding: 3px 3px 3px 4px;
+    text-align: left;
+    color: darkblue;
+    font-weight: bold;
+}
+.valute{
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    color: darkblue;
+    margin: 0;
+    padding: 0;
+}
+.valute h2{
+        margin: 0;
+    padding: 0 3px 5px 4px;
+    background-color: darkblue;
+    color: white;
+    border: darkblue solid 1px;
+    border-bottom: none;
+    border-radius: 4px;
+}
+.valute ul{
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: darkblue solid 1px;
+    border-radius: 4px;
+}
+
+.valute li{
+    list-style: none;
+    margin: 0;
+    padding: 3px 3px 3px 4px;
+    text-align: left;
+    color: darkblue;
+    font-weight: bold;
+}
+.fakture_godine{
+    position: absolute;
+    top: 100px;
+    right: 190px;
+
+}
+.fakture_godine h2{
+    padding: 4px;
+    background-color: darkblue;
+    color: white;
+    margin: 0;
+    border-radius: 4px;
+}
+.fakture_godine p{
+    margin: 0;
+    padding: 4px 4px 4px 4px;
+}
+
+.fakture_godine a{
+    text-decoration: none;
+    color: darkblue;
+    font-weight: bold;
+}
+.fakture_godine a:hover{
+    background-color: darkblue;
+    color: white;
+}
+.faktura-button{
+    position: absolute;
+    top: 100px;
+    right: 15px;
+
+
+}
+
+.faktura-button p{
+    margin: 0 0 10px 0;
+    padding: 2px;
+    background-color: darkblue;
+    color: white;
+    border-radius: 4px;
+}
+.faktura-forma label{
+    display: inline-block;
+    width:130px;
+    background-color: darkblue;
+    color: white;
+    padding: 2px;
+    margin: 0 10px 8px 0;
+    text-align: right;
+    border-radius: 4px;
+}
+.faktura-forma input{
+    display: inline-block;
+}
+.faktura-forma input[type=submit]{
+    margin-left: 4px;
+}
+
+.faktura-pregled-elemenata{
+    position: absolute;
+    top: 100px;
+    right: 60px;
+    width: auto;
+
+}
+.fakture label{
+        display: inline-block;
+    width:130px;
+    background-color: darkblue;
+    color: white;
+    padding: 2px;
+    margin: 0 10px 8px 0;
+    text-align: right;
+    border-radius: 4px;
+}
+#id_opis_usluge{
+    width: 178px;
+}
+#id_pozicija{
+    width: 320px;
+}
+.errorlist
+    {
+        color: red;
+        list-style: none;
+        font-size: 18px;
+    }
+.fakture-prodaja-kreiraj{
+    position: fixed;
+    top: 100px;
+    left: 250px;
+    color: darkblue;
+    margin: 0;
+   width: auto;
+}
+.fakture-prodaja-kreiraj label{
+        display: inline-block;
+    width:130px;
+    background-color: darkblue;
+    color: white;
+    padding: 2px;
+    margin: 0 10px 8px 0;
+    text-align: right;
+    border-radius: 4px;
+}
+.up {
+    position: fixed;
+    bottom: 10px;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+
+}
+.up span{
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    font-size: 40px;
+}
+.pregled-godisnji{
+    margin: 20px;
+
+}
+.pregled-godisnji h2{
+ color: darkblue;
+    text-align: center;
+}

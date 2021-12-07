@@ -1,0 +1,26 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block fakture %}
+    <h2>Unesite elemente u tabelu Valute.</h2>
+    <form action="{% url 'fakture:kreiraj-valutu' %}" method="post">
+    {% csrf_token %}
+        <table>
+    {{ form.as_table }}
+            </table>
+    <input type="submit" value="Spasi valutu">
+    </form>
+    <br>
+    <form>
+    <button formaction="{% url 'fakture:index' %}">Vrati na početnu</button>
+    </form>
+
+{% endblock %}
+{% block valute %}
+    {% if valute %}
+    <h2>Trenutna vrijednost valuta u odnosu na BAM</h2>
+    <ul>
+    {% for v in valute %}
+        <li>Vrijednost valute {{ v.valute }}: {{ v.vrijednost_valute }}<a href="{% url 'fakture:valute_update' v.pk %}">                Promjeni kurs?</a></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "fakture/base_nativ.html" %}
+
+{% block fakture %}
+
+<h1>Izbriši unos</h1>
+
+<p>Da li ste sigurni da želite da izbrišete unos: {{ prodaja.pozicija }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Izbriši iz fakture.">
+</form>
+
+{% endblock %}

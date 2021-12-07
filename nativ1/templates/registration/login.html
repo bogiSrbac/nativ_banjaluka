@@ -1,0 +1,37 @@
+{% extends "fakture/base_nativ.html" %}
+
+{% block fakture %}
+
+  {% if form.errors %}
+    <p>Tvoj email i lozinka ne odgovaraju unešenim elementima. Molimo vas pokušajte ponovo!</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Tvoj nalog nema dozvolu da pristupi ovoj stranici. Prijavite se sa odgovarajućim elementima!</p>
+    {% else %}
+      <p>Prijavite se da bi pristupili svom nalogu!</p>
+    {% endif %}
+  {% endif %}
+
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="Prijavi se" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+
+  {# Assumes you setup the password_reset view in your URLconf #}
+   <p><a href="{% url 'password_change' %}">Promjeni lozinku?</a> </p>
+
+
+{% endblock %}

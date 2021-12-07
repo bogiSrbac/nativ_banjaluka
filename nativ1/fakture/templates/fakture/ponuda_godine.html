@@ -1,0 +1,20 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block fakture %}
+
+    <div class="fakture-lista-naslovna">
+        <h2>Ponuda za {{ ponuda.model.datum_ponude|date:'Y' }} godinu</h2>
+            <ul>
+                 {% for p in ponuda  %}
+                <li><a href="{% url 'fakture:ponuda-skica' p.pk %}">Broj ponude {{ p.broj_ponude }}</a>;  {{ p.kupac }} -- Datum ponude {{ p.datum_ponude|date:'d-m-Y' }}</li>
+                {% endfor %}
+            </ul>
+    </div>
+{% endblock %}
+{% block faktura_button %}
+    <div>
+    <p>Kreiraj novu ponudu: </p>
+    <form>
+        <button formaction="{% url 'fakture:ponuda-create' %}">Kreiraj</button>
+    </form>
+    </div>
+{% endblock %}

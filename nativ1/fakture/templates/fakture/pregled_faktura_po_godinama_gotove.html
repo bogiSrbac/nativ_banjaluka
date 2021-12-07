@@ -1,0 +1,19 @@
+{% extends 'fakture/base_nativ.html' %}
+{% load static %}
+{% block fakture %}
+     {% if fakture %}
+
+
+
+         <div class="fakture-lista-naslovna">
+    <h2>Pregled realizacije fakture po godinama</h2>
+    <ul>
+    {% for d in datum %}
+        <li>Pregled faktura za <a href="{% url 'fakture:placene-fakture' d|date:'Y' %}">{{ d|date:'Y' }}</a>
+    {% endfor %}
+    </ul>
+         </div>
+{% else %}
+    <p style="color: darkred; font-size: 20px; font-weight: bold">U bazi trenutno nemate kreiranih faktura!</p>
+    {% endif %}
+{% endblock %}

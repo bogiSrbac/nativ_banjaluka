@@ -1,0 +1,30 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block fakture %}
+    {% if kupac_list %}
+    {% for z in zemlja %}
+        <div class="fakture-lista-naslovna">
+        <h2>Država {{ z.drzava }}</h2>
+        <ul>
+            {% for k in kupac_list %}
+        {% if k.drzava == z.drzava %}
+            <li>Ime i prezime kupca: {{ k.ime }} {{ k.prezime }}, Naziv preduzeća: {{ k.naziv_firme }}, Drzava: {{ k.drzava }}, <a href="{% url 'fakture:kupac-detalji' k.pk %}">Izmjeni podatke</a></li>
+                {% endif %}
+                {% endfor %}
+                </ul>
+        </div>
+
+
+    {% endfor %}
+        {% else %}
+        <h2>Trenutno u bazi nema unešenih kupaca!</h2>
+    {% endif %}
+
+{% endblock %}
+    {% block faktura_button %}
+    <div>
+    <p>Kreiraj novog kupca: </p>
+    <form>
+        <button formaction="{% url 'fakture:kupac-novi' %}">Kreiraj</button>
+    </form>
+    </div>
+{% endblock %}

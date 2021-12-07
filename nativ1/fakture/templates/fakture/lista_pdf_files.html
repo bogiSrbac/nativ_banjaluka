@@ -1,0 +1,9 @@
+{% extends "fakture/base_nativ.html" %}
+
+{% block fakture %}
+    <ul>
+    {% for myfile in myfiles %}
+    <li><a href="/media/{{ myfile }}" download="{{ myfile }}">{{ myfile }}</a> </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

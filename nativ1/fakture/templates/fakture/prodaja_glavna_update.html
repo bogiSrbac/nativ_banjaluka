@@ -1,0 +1,14 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block fakture %}
+    <form method="post" action="">
+{% csrf_token %}
+    <table>
+{{ form.as_table }}
+        </table>
+<input type="submit" value="Spasi promjene">
+        </form>
+    <br>
+        <form>
+        <button formaction="{% url 'fakture:faktura-prodaja' prodaja.faktura.pk%}">Vrati se bez promjena</button>
+            </form>
+{% endblock %}

@@ -1,0 +1,546 @@
+@page {
+  size: A4;
+  margin: 30px;
+@bottom-center {
+    font-size: 9px;
+    color: #999999;
+    text-align: center;
+    font-family: Calibri;
+    content: 'Strana ' counter(page) " od " counter(pages);
+   }
+}
+
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+    div.page-break { page-break-before: always}
+  div.page-break2{page-break-before: always}
+  /* ... the rest of the rules ... */
+}
+
+
+
+
+.glavni{
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+    margin: -10px 0 0 -38px;
+    font-family: Calibri;
+}
+
+#logo{
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 55px;
+}
+
+#logo-samo img{
+  height: 50px;
+  width: 230px;
+  margin: 0;
+  padding: 0;
+}
+#logo-samo{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+}
+
+#logo-samo p{
+  padding: 0px;
+  margin: 0;
+  color: #999999;
+  letter-spacing: 1.1px;
+}
+
+#zaglavlje_adresa{
+  position: absolute;
+  right: 30px;
+  top: 20px;
+  display: block;
+  text-align: right;
+  margin-right: 0;
+  font-size: 13px;
+
+}
+
+#zaglavlje_adresa p{
+  padding: 2px 2px 0 2px;
+  margin: 0;
+
+}
+#hr-1{
+position : relative;
+top : 110px;
+left : 55px;
+width : auto;
+text-align : center;
+margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0px;
+  margin-right: 86px;
+border: #888888 1px dashed;
+
+}
+#racun{
+  position: absolute;
+  top: 117px;
+  left: 55px;
+  margin: 0;
+
+}
+#racun h4{
+  padding: 0 0 3px 0;
+  margin: 0;
+
+}
+#racun p{
+  font-size: 13px;
+  color: #999999;
+  padding: 0 0 3px 0;
+  margin: 0 0 0 1px;
+}
+
+#racun-broj{
+  position: absolute;
+  top: 117px;
+  right: 55px;
+  text-align: right;
+}
+#racun-broj h4{
+  padding: 0;
+  margin: 0;
+}
+
+#hr-2{
+position : relative;
+top : 160px;
+left : 55px;
+width : auto;
+text-align : center;
+margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0px;
+  margin-right: 86px;
+border: #888888 1px dashed;
+}
+#prodavac{
+  position: absolute;
+  top: 170px;
+  left: 55px;
+  border: #888888 dashed 1px;
+  display: block;
+  text-align: left;
+  height: 105px;
+  width: 340px;
+}
+#prodavac_zaglavlje{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: #cccccc;
+  border-bottom: #888888 dashed 1px;
+  text-align: center;
+}
+#prodavac_zaglavlje h4{
+  margin: 0;
+  padding: 3px 0 3px 0;
+  font-size: 14px;
+}
+
+#prodavac p{
+  margin: 0;
+  padding: 2px 2px 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+#kupac{
+  position: absolute;
+  top: 170px;
+  right: 30px;
+  border: #888888 dashed 1px;
+  display: block;
+  text-align: left;
+  height: 105px;
+  width: 340px;
+}
+#kupac_zaglavlje{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: #cccccc;
+  border-bottom: #888888 dashed 1px;
+  text-align: center;
+}
+#kupac_zaglavlje h4{
+  margin: 0;
+  padding: 3px 0 3px 0;
+  font-size: 14px;
+}
+#kupac p{
+  margin: 0;
+  padding: 2px 2px 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.mj-racun{
+  position: absolute;
+  top: 290px;
+  left: 55px;
+  font-size: 13px;
+  display: block;
+  text-align: left;
+  height: 105px;
+  width: 344px;
+
+}
+.mj-racun-th {
+  border: 1px dashed #888888;
+  border-collapse: collapse;
+  width: 160px;
+   text-align: left;
+   font-weight: bold;
+
+}
+.mj-racun th {
+  padding: 0 0 2px 0;
+
+}
+.mj-racun td {
+  padding: 0 0 2px 50px;
+
+}
+.mj-racun th{
+  font-size: 11px;
+  font-weight: bold;
+
+}
+.mj-racun-th-2 {
+  color: #999999;
+  text-align: left;
+}
+.mj-racun-desno{
+  position: absolute;
+  top: 290px;
+  right: 28px;
+  display: block;
+  text-align: left;
+  height: 105px;
+  width: 346px;
+
+}
+.mj-racun-desno th {
+  padding: 0 0 2px 0;
+
+}
+
+
+.mj-racun-desno th{
+  font-size: 11px;
+  text-align: left;
+}
+.mj-racun-desno td{
+  text-align: left;
+  padding: 0 0 2px 50px;
+   font-weight: bold;
+}
+.glavna-tabela{
+  position: absolute;
+  top: 400px;
+  left: 56px;
+  display: block;
+  text-align: left;
+  height: auto;
+  width: 89.2%;
+
+}
+.glavna-tr-1 {
+  font-size: 11px;
+  color: #999999;
+
+}
+.glavna-tabela-tabela th, td{
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.glavna-tabela-granice th, td{
+    border: 1px dashed #888888;
+  border-collapse: collapse;
+
+}
+.glavna-tabela-tabela {
+   border-collapse: collapse;
+  position: relative;
+}
+.glavna-tabela-granice th{
+  height: 22px;
+  background-color: #cccccc;
+}
+.glavna-tabela-granice td{
+  height: 22px;
+}
+.glavna-tabela-suma td{
+  height: 22px;
+  font-weight: bold;
+}
+.no-border{
+  border: none;
+}
+
+#footer{
+    position: fixed;
+    bottom: -23px;
+    left: 23px;
+    width: 187.2mm;
+    display: block;
+    font-family: Calibri;
+}
+#footer-lijevo{
+
+  position: relative;
+  width: 55mm;
+  display: block;
+  font-size: 11px;
+  color: #999999;
+  top: 0;
+  left: 0;
+  text-align: left;
+  margin: 0;
+
+}
+#footer-lijevo p{
+  margin: 0;
+  padding: 1px 0 1px 0;
+}
+#footer-desno{
+
+  position: absolute;
+  width: 53mm;
+  display: block;
+  font-size: 11px;
+  color: #999999;
+  top: 0;
+  right: 0;
+  text-align: right;
+
+}
+#footer-desno p {
+  margin: 0;
+  padding: 1px 0 1px 0;
+}
+.glavna-tabela-2{
+    position: absolute;
+
+  top: 40px;
+  left: 55px;
+  display: block;
+  text-align: left;
+  height: auto;
+  width: 89.2%;
+}
+
+.valute{
+  position: absolute;
+  border: 1px dashed #888888;
+  width: 250px;
+  height: 35px;
+  margin-top: -10px;
+  margin-left: 0;
+}
+
+.valute p{
+  padding: 1px 1px 1px 1px;
+  margin: 0;
+  font-size: 13px;
+}
+.iznos-sa-pdv{
+  position: absolute;
+  margin-top: 10px;
+  right: 0;
+  width: 420px;
+}
+.iznos-sa-pdv th, td {
+  margin: 0;
+  padding: 0;
+
+  font-size: 12px;
+}
+.pdv-zaglavlje{
+  text-align: center;
+  height: 20px;
+    border: 1px dashed #888888;
+
+}
+.table-pdv{
+  border-collapse: collapse;
+
+}
+.table-pdv td{
+    height: 35px;
+    font-size: 12px;
+}
+.pdv-sadrzaj-tabele th{
+  text-align: center;
+  border: 1px dashed #888888;
+   background-color: #cccccc;
+   height: 20px;
+}
+.zakon{
+     position: absolute;
+  margin-top: 160px;
+  left: -2px;
+  height: 50px;
+  width: 360px;
+  font-size: 10px;
+}
+.zakon p{
+    padding: 0;
+    margin: 0;
+}
+.ziro-racun{
+  position: absolute;
+  margin-top: 40px;
+  left: -2px;
+  height: 115px;
+  width: 250px;
+  border: 1px dashed #888888;
+
+}
+#ziro-racun-tijelo{
+    position: absolute;
+    margin-top: 25px;
+    left: 0;
+}
+#ziro-racun-tijelo p{
+    padding: 0 0 2px 2px;
+    margin: 0;
+    font-size: 12px;
+    top: 30px;
+    font-weight: bold;
+}
+.ziro-racun-naslov{
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 12px;
+  text-align: center;
+  font-weight: bold;
+  background-color: #cccccc;
+  height: 23px;
+  width: 100%;
+  margin: 0;
+  border-bottom: #888888 1px dashed;
+}
+.ziro-racun-naslov p{
+
+  padding: 3px 0 0 0;
+  margin: 0;
+}
+.placeno-za-platiti{
+    position: absolute;
+  margin-top: 130px;
+  right: 0;
+  width: 343px;
+}
+.placeno-za-platiti th, td{
+    margin: 0;
+  padding: 0;
+  font-size: 12px;
+  height: 23px;
+}
+.table-pdv td{
+    height: 23px;
+}
+.pzp-zaglavlje{
+  background-color: #cccccc;
+    text-align: center;
+  height: 23px;
+    border: 1px dashed #888888;
+}
+.platiti-njemacki{
+   border: 1px dashed #888888;
+  text-align: center;
+  color: #999999;
+  background-color: #cccccc;
+}
+.glavni-2 {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.redni-broj{
+    width: 17px;
+}
+.usluga{
+    width: 340px;
+}
+
+.kod{
+    width: 25px;
+}
+.jedinica{
+    width: 20px;
+}
+
+.kolicina{
+    width: 30px;
+}
+.cijena-kom{
+    width: 45px;
+}
+.pdv {
+    width: 35px;
+}
+.cijena-bruto{
+    width: 45px;
+}
+.cijena-neto-ukupno {
+    width: 45px;
+}
+.cijena-bruto-ukupno{
+    width: 45px;
+}
+.opis-usluge{
+    text-align: left;
+    font-size: 11px;
+    width: 275px;
+    padding: 0 1px 0 1px;
+}
+.potpis {
+    position: absolute;
+    top: 997px;
+    left: 59px;
+    text-align: center;
+}
+.potpis p{
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+}
+.potpis-dolje{
+    font-size: 9px;
+}
+.potpis-desno{
+    position: absolute;
+    margin-top: 992px;
+    right: 32px;
+    text-align: center;
+}
+.potpis-desno p{
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+}
+

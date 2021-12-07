@@ -1,0 +1,44 @@
+{% extends 'fakture/base_nativ.html' %}
+{% load static %}
+{% block fakture %}
+    {% if pozicije and valute and kupci %}
+    {% else %}
+    <p style="color: darkred; font-size: 20px; font-weight: bold">Vratite se na početnu stranu i unesite minimalno po jedan element u tabele Pozicije, Valute i Kupci!</p>
+    {% endif %}
+    {% if datum %}
+    {% for d in datum %}
+         <div class="fakture-lista-naslovna">
+    <h2>Fakture za {{ d|date:'Y' }} godinu</h2>
+    <ul>
+    {% for faktura in faktura_list %}
+          {% if d|date:'Y' == faktura.datum_fakture|date:'Y' %}
+                  <li><a href="{% url 'fakture:faktura-detalji' faktura.pk %}">Broj fakture {{ faktura.broj_fakture }}</a>;  {{ faktura.kupac }} -- Datum fakture {{ faktura.datum_fakture|date:'d-m-Y' }} </li>
+
+              {% endif %}
+    {% endfor %}
+    </ul>
+         </div>
+    {% endfor %}
+{% else %}
+<h3>U bazi trenutno nema kreiranih faktura!</h3>
+{% endif %}
+{% endblock %}
+{% block fakture_godine %}
+    {% if datum %}
+        <div class="fakture-godine">
+        <h2>Fakture po godinama</h2>
+        {% for d in datum %}
+        <p><a href="{% url 'fakture:fakture_po_godinama' d|date:'Y' %}">Fakture za {{ d|date:'Y' }} godinu</a></p>
+        {% endfor %}
+    </div>
+    {% else %}
+{% endif %}
+{% endblock %}
+{% block faktura_button %}
+    <div>
+    <p>Kreiraj novu fakturu: </p>
+    <form>
+        <button formaction="{% url 'fakture:kreiraj-fakturu' %}">Kreiraj</button>
+    </form>
+    </div>
+{% endblock %}

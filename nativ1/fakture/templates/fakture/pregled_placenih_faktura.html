@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>PDF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/base_nativ.css' %}">
+
+
+</head>
+<body style="background-color: aliceblue;">
+{% if fakture %}
+    <div class="pregled-godisnji">
+    <h2> PREGLED REALIZACIJE FAKTURA ZA {{ datum|date:'Y' }} GODINU</h2>
+    <table style="width:1600px; text-align: center; border-collapse: collapse;" id="glavna-tabela-tabela" border="1">
+    <tr>
+        <th style="width: 180px; border: 3px solid darkblue; background-color: darkgray;">Broj fakture</th>
+        <th style="width: 110px; border: 3px solid darkblue; background-color: darkgray;">Datum fakture</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">Komitetnt</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">Iznos neto</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">PDV</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">Ukupan iznos u Evrima</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">Ukupan iznos u KM</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">Račun poslat</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">Rok plaćanja</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">Uplaćeno</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">Razlika</th>
+        <th style=" border: 3px solid darkblue; background-color: darkgray;">Realizovano</th>
+    </tr>
+
+    {% for f in fakture %}
+    <tr>
+        <td style="border: 3px solid darkblue;">IN-{{ f.broj_fakture }}-{{ f.datum_fakture|date:'Ymd' }}-{{ f.ident_brojevi }}</td>
+        <td style="border: 3px solid darkblue;">{{ f.datum_fakture|date:'d-m-Y' }}</td>
+        <td style="border: 3px solid darkblue;">{{ f.kupac }}</td>
+        <td style="border: 3px solid darkblue;">{{ f.neto_cijena}}</td>
+        <td style="border: 3px solid darkblue;">{{ f.pdv }}</td>
+        <td style="border: 3px solid darkblue;">{% if f.kupac.drzava != 'Bosna i Hercegovina' %}{{ f.bruto_cijena }} EUR {% else %} 0.00 EUR {% endif %}</td>
+        <td style="border: 3px solid darkblue;">{% if f.kupac.drzava != 'Bosna i Hercegovina' %}{{ f.bruto_cijena_km }} KM {% else %} {{ f.bruto_cijena }} KM{% endif %}</td>
+        <td style="border: 3px solid darkblue;">{{ f.datum_fakture|date:'d-m-Y' }}</td>
+    {% if f.prosao_rok_placanja %}
+        <td style="border: 3px solid darkblue; color: darkred; font-size: 20px; background-color: aqua">{{ f.rok_placanja|date:'d-m-Y' }}</td>
+    {% else %}
+    <td style="border: 3px solid darkblue">{{ f.rok_placanja|date:'d-m-Y' }}</td>
+    {% endif %}
+        <td style="border: 3px solid darkblue;">{% if f.kupac.drzava != 'Bosna i Hercegovina' %}{{ f.uplaceno }} EUR {% else %} {{ f.uplaceno }} KM {% endif %}</td>
+        <td style="border: 3px solid darkblue;">{% if f.kupac.drzava != 'Bosna i Hercegovina' %} {{ f.razlika }} EUR {% else %} {{ f.razlika }} KM {% endif %}</td>
+        <td style="border: 3px solid darkblue;">{% if f.placeno == 'NP' %}<a style="width: 100px; color: darkred; font-size: 20px; text-decoration: none" href="{% url 'fakture:placene-fakture-update' f.pk%}">Nije plaćeno</a> {% else %}Plaćeno{% endif %} </td>
+
+    </tr>
+    {% endfor %}
+
+
+    </table>
+    <br>
+    <form>
+    <button formaction="{% url 'fakture:export-excel' datum|date:'Y'%}">Excel</button>
+        </form>
+     <br>
+     <form>
+        <button formaction="{% url 'fakture:index' %}">Vrati se na početnu</button>
+            </form>
+
+    </div>
+{% else %}
+<h2>U bazi nemate kreiranih faktura!</h2>
+{% endif %}
+</body>
+</html>

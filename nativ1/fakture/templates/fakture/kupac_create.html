@@ -1,0 +1,12 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block fakture %}
+    <h2>Unesite podatke za novog kupca</h2>
+    <form action="" method="post">
+    {% csrf_token %}
+        <table>
+    {{ form.as_table }}
+            </table>
+    <input type="submit" value="Kreiraj">
+
+    </form>
+{% endblock %}

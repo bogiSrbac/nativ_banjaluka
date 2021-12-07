@@ -1,0 +1,26 @@
+{% extends 'fakture/base_nativ.html' %}
+{% block fakture %}
+
+    <h2>Podaci unešeni u fakturu broj {{ prodaja.faktura.broj_fakture }}</h2>
+    <p>Kupac: {{ prodaja.faktura.kupac.naziv_firme }}</p>
+    <p>Broj fakture: {{ prodaja.faktura.broj_fakture }}</p>
+    <p>Usluga: {{ prodaja.opis_usluge }}</p>
+    <p>Pozicija: {{ prodaja.pozicija.naziv_pozicije }} -- Kod: {{ prodaja.pozicija.pos_NSN }}{{ prodaja.pozicija.pos_broj }}</p>
+    <p>Neto cijena proizvoda: {{ prodaja.neto_cijena_proizvoda }}</p>
+    <p>PDV: {{ prodaja.pdv }} %</p>
+    <p>Bruto cijena proizvoda: {{ prodaja.bruto_cijena_proizvoda }}</p>
+    <p>Neto cijena: {{ prodaja.neto_cijena }}</p>
+    <p>Bruto cijena: {{ prodaja.bruto_cijena }}</p>
+    <form action="{% url 'fakture:prodaja-izmjena' prodaja.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Izmjeni">
+    </form>
+    <br>
+            <form>
+        <button formaction="{% url 'fakture:prodaja-brisanje' prodaja.pk%}">Izbriši unos?</button>
+            </form>
+    <br>
+        <form>
+        <button formaction="{% url 'fakture:faktura-prodaja' prodaja.faktura.pk%}">Vrati se bez promjena</button>
+            </form>
+{% endblock %}
